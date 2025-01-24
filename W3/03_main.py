@@ -132,5 +132,5 @@ class MultiThreadScrapper:
 
 if __name__ == "__main__":
     base_url = "https://quotes.toscrape.com/"
-    scraper = MultiThreadScrapper(base_url, max_threads=5)
+    scraper = MultiThreadScrapper(base_url, max_threads=20)
     scraper.run(start_path="/")
