@@ -1,0 +1,48 @@
+import requests
+from bs4 import BeautifulSoup
+
+def countries_with_all_cases_died():
+    url = "https://www.worldometers.info/coronavirus/"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        table = soup.find('table', {'id': 'main_table_countries_today'})
+
+        countries_data = []
+        rows = table.find_all('tr')[1:]
+
+        for row in rows:
+            columns = row.find_all('td')
+            if len(columns) < 8:
+                continue
+
+            country_name = columns[1].text.strip()
+            try:
+                total_cases = columns[2].text.strip().replace(',', '')
+                total_deaths_text = columns[4].text.strip().replace(',', '')
+
+                # Skip countries with invalid data (e.g., "N/A" or not digits)
+                if total_deaths_text == 'N/A' or not total_deaths_text.isdigit():
+                    continue
+                total_deaths = int(total_deaths_text)
+
+                # Convert total_cases to an integer
+                total_cases = int(total_cases) if total_cases.isdigit() else 0
+
+                # Check if all cases have died
+                if total_cases == total_deaths and total_cases > 0:
+                    countries_data.append(country_name)
+            except ValueError:
+                continue
+
+        if countries_data:
+            print("Countries where all COVID-19 cases have died: ")
+            for country in countries_data:
+                print(country)
+        else:
+            print("No countries currently have all cases resulting in death.")
+    else:
+        print(f"Failed to fetch data from {url}")
+
+countries_with_all_cases_died()
