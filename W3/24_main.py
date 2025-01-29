@@ -7,10 +7,10 @@ def antonyms_and_synonyms(word):
     synonyms = set()
     antonyms = set()
     for syn in synsets:
-        for lemma in syn.lemmas():
-            synonyms.add(lemma.name())
+        for lemma in syn.lemmas(): 
+            synonyms.add(lemma.name()) 
             for antonym in lemma.antonyms():
-                antonyms.add(antonym.name())
+                antonyms.add(antonym.name()) 
     return list(synonyms), list(antonyms)
 
 word = input("Please enter a word: ")
