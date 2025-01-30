@@ -12,7 +12,7 @@ def antonyms_and_synonyms(word):
             for antonym in lemma.antonyms():
                 antonyms.add(antonym.name()) 
     return list(synonyms), list(antonyms)
-
+ 
 word = input("Please enter a word: ")
 synonyms, antonyms = antonyms_and_synonyms(word)
 print(synonyms)
