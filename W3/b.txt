@@ -1,0 +1,3 @@
+total_purch_amt = grouped[('purch_amt', 'sum')].sum()
+
+grouped['purch_amt_percent'] = (grouped[('purch_amt', 'sum')] / total_purch_amt) * 100
